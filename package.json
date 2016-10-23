@@ -1,0 +1,23 @@
+{
+  "name": "private_handbook_web",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.7.0"
+  },
+  "dependencies": {
+    "@sketchpixy/rubix": "^2.9.10",
+    "bless": "^3.0.3",
+    "node-sass": "^3.10.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-router": "^2.8.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "sass": "node-sass --include-path ./node_modules --include-path ./public sass/main.scss src/main.css && blessc -f src/main.css"
+  }
+}
