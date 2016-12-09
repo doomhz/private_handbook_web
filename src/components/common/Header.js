@@ -1,19 +1,24 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { Link } from 'react-router';
-
+import { browserHistory } from 'react-router';
 import {
-  SidebarBtn,
-  Navbar,
-  Nav,
-  NavItem,
-  Icon,
-  Grid,
-  Row,
-  Col } from '@sketchpixy/rubix';
+  signOut
+} from '../../helpers/Auth'
+import {
+  SidebarBtn, Navbar, Nav, NavItem,
+  Icon, Grid, Row, Col
+} from '@sketchpixy/rubix';
 
 const getPath = (path)=> `/${path}`
+
+const logOut = ()=> {
+  signOut()
+  .then(()=> {
+    alert("See you soon!")
+    browserHistory.push('/')
+  })
+}
 
 const Brand = (props)=> {
   return (
@@ -59,9 +64,11 @@ const HeaderNavigation = (props)=> {
         />
       </Nav>
       <Nav>
-        <NavItem className='logout' href='#' onClick={(ev)=> ev.preventDefault()}>
-          <Icon bundle='fontello' glyph='off-1' />
-        </NavItem>
+        {props.user &&
+          <NavItem className='logout' href='#' onClick={(ev)=> logOut()}>
+            <Icon bundle='fontello' glyph='off-1' />
+          </NavItem>
+        }
       </Nav>
     </Nav>
   );

@@ -8,9 +8,12 @@
   "dependencies": {
     "@sketchpixy/rubix": "^2.9.10",
     "bless": "^3.0.3",
+    "firebase": "^3.6.3",
+    "lodash": "^4.17.2",
     "node-sass": "^3.10.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-gravatar": "^2.6.1",
     "react-router": "^2.8.1"
   },
   "scripts": {
