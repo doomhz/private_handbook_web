@@ -46,7 +46,11 @@ const SidebarContainer = (props)=> {
             <Col xs={8} collapseLeft id='avatar-col'>
               <div style={{top: 23, fontSize: 16, lineHeight: 1, position: 'relative'}}>
                 {email}
-                {!email && <Link to="login" style={{color:"#FFF"}}>Log In</Link>}
+                {!email &&
+                  <div>
+                    <Link to="login" style={{color:"#FFF"}}>Log In</Link> ~ <Link to="signup" style={{color:"#FFF"}}>Sign up</Link>
+                  </div>
+                }
               </div>
             </Col>
           </Row>

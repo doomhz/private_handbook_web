@@ -6,6 +6,9 @@ import {
   signOut
 } from '../../helpers/Auth'
 import {
+  syncUserTodos
+} from '../../helpers/TodoStorage'
+import {
   SidebarBtn, Navbar, Nav, NavItem,
   Icon, Grid, Row, Col
 } from '@sketchpixy/rubix';
@@ -18,6 +21,13 @@ const logOut = ()=> {
     alert("See you soon!")
     browserHistory.push('/')
   })
+}
+
+const syncTodods = (user)=> {
+  if (!user) return browserHistory.push('login')
+  syncUserTodos(user.uid)
+  .then(()=> alert(`Successfully synced for ${user.email}.`))
+  .catch(()=> alert(`Could not sync for ${user.email}. Please try again.`))
 }
 
 const Brand = (props)=> {
@@ -56,16 +66,12 @@ const HeaderNavigation = (props)=> {
     <Nav pullRight>
       <Nav className='hidden-xs'>
         <NavItem divider />
-        <DirectNavItem glyph='user-female' eventKey={3}
-          path={getPath('')}
-          location={props.location}
-          className='small-font'
-          style={{position: 'relative', top: 2}}
-        />
-      </Nav>
-      <Nav>
+        <NavItem href='#' onClick={(ev)=> syncTodods(props.user)}>
+          <Icon bundle='fontello' glyph='arrows-cw' />
+        </NavItem>
+        <NavItem divider />
         {props.user &&
-          <NavItem className='logout' href='#' onClick={(ev)=> logOut()}>
+          <NavItem href='#' onClick={(ev)=> logOut()}>
             <Icon bundle='fontello' glyph='off-1' />
           </NavItem>
         }
