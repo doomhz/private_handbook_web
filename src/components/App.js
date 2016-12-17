@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import '../App.css';
 
 import '../main.css';
-import { Grid, Row, Col, MainContainer } from '@sketchpixy/rubix';
+import {
+  Grid, Row, Col, MainContainer
+} from '@sketchpixy/rubix';
 
 /* Common Components */
 import Sidebar from './common/Sidebar';
@@ -28,7 +30,7 @@ class App extends Component {
     loadCurrentUser().then((userData)=> this.setState({user: userData}))
   }
   signOut(){
-    let afterLogOut = ()=> this.setState({user: null}) || alert("Logged out!")
+    let afterLogOut = ()=> this.setState({user: null})
     signOut().then(afterLogOut).catch(afterLogOut)
   }
   render() {

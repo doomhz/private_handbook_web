@@ -5,7 +5,7 @@ import {
 } from '../helpers/Auth'
 import {
   Form, FormGroup, FormControl, ControlLabel,
-  Col, Button
+  Col, Button, Alert
 } from '@sketchpixy/rubix';
 
 export default class Home extends React.Component {
@@ -15,12 +15,13 @@ export default class Home extends React.Component {
   }
   handleFormSubmit(ev){
     ev.preventDefault()
+    this.setState({error: null})
     if (!this.state.email || !this.state.password) return
     signup(this.state.email, this.state.password)
     .then(()=> {
       browserHistory.push('/todos')
     })
-    .catch((error)=> alert(error.message))
+    .catch((error)=> this.setState({error: error.message}))
   }
   handleFieldChange(ev){
     this.setState({[ev.target.name]: ev.target.value})
@@ -51,6 +52,11 @@ export default class Home extends React.Component {
             </Col>
           </FormGroup>
         </Form>
+        {this.state.error &&
+          <Alert danger>
+            <span>{this.state.error}</span>
+          </Alert>
+        }
       </div>
     );
   }

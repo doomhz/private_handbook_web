@@ -26,3 +26,16 @@
 .todos-list {
   list-style-type: none;
 }
+
+.todos-list .todo-item:hover {
+  background: none;
+}
+
+.todos-list .todo-item .checkbox {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.todos-list .todo-item-completed label {
+  text-decoration: line-through;
+}

@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 import {
@@ -18,7 +17,6 @@ const getPath = (path)=> `/${path}`
 const logOut = ()=> {
   signOut()
   .then(()=> {
-    alert("See you soon!")
     browserHistory.push('/')
   })
 }
@@ -39,25 +37,6 @@ const Brand = (props)=> {
         </Link>
       </Navbar.Brand>
     </Navbar.Header>
-  );
-}
-
-const DirectNavItem = (props)=> {
-  var active = false;
-  var currentLocation = props.location.pathname;
-
-  if(!active && props.path) {
-    active = (currentLocation === props.path);
-  }
-
-  var classes = classNames({
-    'pressed': active
-  }, props.className);
-
-  return (
-    <NavItem className={classes} style={props.style} href={props.path} to={props.path} componentClass={Link}>
-      <Icon bundle={props.bundle || 'fontello'} glyph={props.glyph} />
-    </NavItem>
   );
 }
 

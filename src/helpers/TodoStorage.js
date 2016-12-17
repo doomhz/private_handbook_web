@@ -1,8 +1,6 @@
 import {differenceBy} from 'lodash';
 import {
-  TYPE_DO, TYPE_DECIDE, TYPE_DELEGATE,
-  TYPE_DELETE, STORAGE_KEY_NAME,
-  APP
+  STORAGE_KEY_NAME, APP
 } from '../constants'
 
 const db = APP.database()
@@ -49,6 +47,7 @@ const updateTodo = (todo = {})=> {
         todo.last_updated = Date.now()
         item = Object.assign(item, todo)
       }
+      return item
     })
     return setTodos(todos)
   })
