@@ -8,7 +8,8 @@ import {
   syncUserTodos
 } from '../../helpers/TodoStorage'
 import {
-  SidebarBtn, Navbar, Nav, NavItem,
+  SidebarBtn, Navbar, Nav,
+  NavDropdownHover, MenuItem,
   Icon, Grid, Row, Col
 } from '@sketchpixy/rubix';
 
@@ -43,16 +44,19 @@ const Brand = (props)=> {
 const HeaderNavigation = (props)=> {
   return (
     <Nav pullRight>
-      <Nav className='hidden-xs'>
-        <NavItem divider />
-        <NavItem href='#' onClick={(ev)=> syncTodods(props.user)}>
-          <Icon bundle='fontello' glyph='arrows-cw' />
-        </NavItem>
-        <NavItem divider />
+      <Nav>
         {props.user &&
-          <NavItem href='#' onClick={(ev)=> logOut()}>
-            <Icon bundle='fontello' glyph='off-1' />
-          </NavItem>
+          <NavDropdownHover eventKey={3} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
+            <MenuItem eventKey={3.1} onClick={(ev)=> syncTodods(props.user)}>Sync</MenuItem>
+            <MenuItem eventKey={3.2} onClick={(ev)=> logOut()}>Logout</MenuItem>
+          </NavDropdownHover>
+        }
+        {!props.user &&
+          <NavDropdownHover eventKey={3} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
+            <MenuItem eventKey={3.1} onClick={(ev)=> syncTodods(props.user)}>Sync</MenuItem>
+            <MenuItem eventKey={3.2} onClick={(ev)=> browserHistory.push('login')}>Login</MenuItem>
+            <MenuItem eventKey={3.2} onClick={(ev)=> browserHistory.push('signup')}>Signup</MenuItem>
+          </NavDropdownHover>
         }
       </Nav>
     </Nav>
