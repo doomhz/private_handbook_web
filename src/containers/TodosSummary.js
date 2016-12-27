@@ -1,41 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {Link, browserHistory} from 'react-router';
 import {
   Row, Col, Modal, Button, Form,
   FormGroup, FormControl, Icon
 } from '@sketchpixy/rubix';
 import {
-  TYPE_DO, TYPE_DECIDE, TYPE_DELEGATE, TYPE_DELETE
+  TYPE_DO, TYPE_DECIDE, TYPE_DELEGATE, TYPE_DELETE,
+  TODO_STATUS_ACTIVE
 } from '../constants'
-import {
-  getTodosByStatus
-} from '../helpers/TodoStorage'
-import TodoStorage from '../helpers/TodoStorage'
+import {loadTodos, addTodo} from '../store/todos/actions'
+import {getGroupedTodosByTypeAndStatus} from '../store/todos/selectors'
 
-export default class TodosSummary extends React.Component {
+class TodosSummary extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      todos: [],
       showQuickAdd: false,
       quickAddType: null,
       addTodoValue: ""
     }
   }
-  componentWillReceiveProps(nextProps){
-    this.loadActiveTodos()
-  }
   componentDidMount() {
-    this.loadActiveTodos()
-  }
-  loadActiveTodos(){
-    return getTodosByStatus("active")
-    .then((todos)=> {
-      this.setState({
-        todos: todos
-      })
-      return todos
-    })
+    this.props.dispatch(loadTodos({sync: true}))
   }
   toggleQuickAdd(type){
     this.setState({
@@ -46,35 +33,27 @@ export default class TodosSummary extends React.Component {
   addTodo(todo = {}){
     if (!todo.title) todo.title = this.state.addTodoValue
     todo.type = this.state.quickAddType
-    return TodoStorage.addTodo(todo)
-    .then(()=> {
-      this.loadActiveTodos()
-      this.setState({
-        quickAddType: "",
-        addTodoValue: ""
-      })
-    })
+    this.props.dispatch(addTodo(todo, {sync: true}))
+    this.setState({quickAddType: "", addTodoValue: ""})
   }
   handleQuickAdd(){
     if (!this.state.addTodoValue) return
     this.addTodo()
-    .then(()=> this.toggleQuickAdd())
+    this.toggleQuickAdd()
   }
   renderActiveTodos(type){
-    let todos = this.state.todos.filter((t)=> t.type === type)
-    if (todos.length)
-      return (
-        <ul>
-          {todos.map((t, i)=> {
-            return (
-              <li key={i}>
-                <span>{t.title}</span>
-              </li>
-            )
-          })}
-        </ul>
-      )
-    return null
+    if (!this.props.todos[type]) return null
+    return (
+      <ul>
+        {this.props.todos[type].map((t, i)=> {
+          return (
+            <li key={i}>
+              <span>{t.title}</span>
+            </li>
+          )
+        })}
+      </ul>
+    )
   }
   renderQuickAdd(){
     return (
@@ -163,3 +142,9 @@ export default class TodosSummary extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state)=> ({
+  todos: getGroupedTodosByTypeAndStatus(state, TODO_STATUS_ACTIVE)
+})
+
+export default connect(mapStateToProps)(TodosSummary);

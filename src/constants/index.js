@@ -10,6 +10,9 @@ export const TYPE_TITLES = {
   [`${TYPE_DELEGATE}`]: "Urgent Not Important",
   [`${TYPE_DELETE}`]: "Not Urgent Not Important",
 }
+export const TODO_STATUS_DELETED = "deleted"
+export const TODO_STATUS_ACTIVE = "active"
+export const TODO_STATUS_COMPLETED = "completed"
 
 import Firebase from 'firebase'
 import config from '../../config.json'

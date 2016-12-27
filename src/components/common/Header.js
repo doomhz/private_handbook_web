@@ -2,32 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 import {
-  signOut
-} from '../../helpers/Auth'
-import {
-  syncUserTodos
-} from '../../helpers/TodoStorage'
-import {
   SidebarBtn, Navbar, Nav,
   NavDropdownHover, MenuItem,
   Icon, Grid, Row, Col
 } from '@sketchpixy/rubix';
 
 const getPath = (path)=> `/${path}`
-
-const logOut = ()=> {
-  signOut()
-  .then(()=> {
-    browserHistory.push('/')
-  })
-}
-
-const syncTodods = (user)=> {
-  if (!user) return browserHistory.push('login')
-  syncUserTodos(user.uid)
-  .then(()=> alert(`Successfully synced for ${user.email}.`))
-  .catch(()=> alert(`Could not sync for ${user.email}. Please try again.`))
-}
 
 const Brand = (props)=> {
   return (
@@ -47,15 +27,15 @@ const HeaderNavigation = (props)=> {
       <Nav>
         {props.user &&
           <NavDropdownHover eventKey={3} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
-            <MenuItem eventKey={3.1} onClick={(ev)=> syncTodods(props.user)}>Sync</MenuItem>
-            <MenuItem eventKey={3.2} onClick={(ev)=> logOut()}>Logout</MenuItem>
+            <MenuItem eventKey={3.1} onClick={props.onSync}>Sync</MenuItem>
+            <MenuItem eventKey={3.2} onClick={props.onLogout}>Logout</MenuItem>
           </NavDropdownHover>
         }
         {!props.user &&
           <NavDropdownHover eventKey={3} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
-            <MenuItem eventKey={3.1} onClick={(ev)=> syncTodods(props.user)}>Sync</MenuItem>
+            <MenuItem eventKey={3.1} onClick={(ev)=> browserHistory.push('login')}>Sync</MenuItem>
             <MenuItem eventKey={3.2} onClick={(ev)=> browserHistory.push('login')}>Login</MenuItem>
-            <MenuItem eventKey={3.2} onClick={(ev)=> browserHistory.push('signup')}>Signup</MenuItem>
+            <MenuItem eventKey={3.3} onClick={(ev)=> browserHistory.push('signup')}>Signup</MenuItem>
           </NavDropdownHover>
         }
       </Nav>

@@ -1,88 +1,61 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {browserHistory} from 'react-router';
 import {
-  TYPE_TITLES
+  TYPE_TITLES, TODO_STATUS_ACTIVE, TODO_STATUS_COMPLETED
 } from '../constants'
 import {
   Checkbox, Form, FormGroup, FormControl,
   Button, Icon
 } from '@sketchpixy/rubix';
-import TodoStorage from '../helpers/TodoStorage'
+import {loadTodos, addTodo, deleteTodo, updateTodo} from '../store/todos/actions'
+import {getTodosByType} from '../store/todos/selectors'
 
-export default class TodosList extends React.Component {
+class TodosList extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      todos: [],
       type: props.params.type,
       addTodoValue: ""
     }
   }
   componentDidMount() {
-    this.updateTodos()
-  }
-  loadActiveTodos(){
-    return TodoStorage.getTodosByType(this.state.type)
-    .then((todos)=> {
-      this.setState({
-        todos: todos
-      })
-      return todos
-    })
-  }
-  updateTodos(){
-    return TodoStorage.getTodosByType(this.state.type)
-    .then((todos)=> {
-      this.setState({
-        todos: todos
-      })
-      return todos
-    })
+    this.props.dispatch(loadTodos({sync: true}))
   }
   toggleTodo(todo){
-    todo.status = todo.status === "active" ? "completed" : "active"
-    TodoStorage.updateTodo(todo)
-    .then(()=> {
-      this.updateTodos()
-    })
+    const newStatus = todo.status === TODO_STATUS_ACTIVE ? TODO_STATUS_COMPLETED : TODO_STATUS_ACTIVE
+    const newTodo = Object.assign({}, todo, {status: newStatus})
+    this.props.dispatch(updateTodo(newTodo, {sync: true}))
   }
   addTodo(todo = {}){
     if (!todo.title) todo.title = this.state.addTodoValue
     if (!todo.title) return
     todo.type = this.state.type
-    TodoStorage.addTodo(todo)
-    .then(()=> {
-      this.updateTodos()
-      this.setState({addTodoValue: ""})
-    })
+    this.props.dispatch(addTodo(todo, {sync: true}))
+    this.setState({addTodoValue: ""})
   }
   deleteTodo(todo){
-    TodoStorage.deleteTodo(todo)
-    .then(()=> {
-      this.updateTodos()
-    })
+    this.props.dispatch(deleteTodo(todo, {sync: true}))
   }
   handleTodoSubmit(ev){
     ev.preventDefault()
     this.addTodo()
   }
   renderTodos(){
-    let todos = this.state.todos.filter((t)=> t.type === this.state.type)
-    if (todos.length)
+    if (this.props.todos.length)
       return (
         <ul className="todos-list">
-          {todos.map((todo, i)=> {
+          {this.props.todos.map((todo, i)=> {
             return (
               <li key={i} className={`todo-item todo-item-${todo.status}`}>
                 <Checkbox
-                  checked={todo.status !== "active"}
+                  checked={todo.status !== TODO_STATUS_ACTIVE}
                   readOnly
                   onChange={()=> this.toggleTodo(todo)}
                 >
                   {todo.title}
                 </Checkbox>
                 <Button
-
                   bsStyle="link"
                   onlyOnHover
                   onClick={()=> this.deleteTodo(todo)}
@@ -128,3 +101,10 @@ export default class TodosList extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps)=> ({
+  todos: getTodosByType(state, ownProps.params.type),
+  type: ownProps.params.type
+})
+
+export default connect(mapStateToProps)(TodosList);

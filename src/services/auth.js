@@ -1,9 +1,12 @@
-import {
-  APP, AUTH_KEY_NAME
-} from '../constants'
+import { pick } from "lodash"
+import { APP, AUTH_KEY_NAME } from '../constants'
 
 const auth = APP.auth()
 const LOCAL_STORAGE = window.localStorage
+const AUTH_USER_PROPERTIES = [
+  "displayName", "email", "emailVerified", "isAnonymous",
+  "photoURL", "redirectEventId", "uid"
+]
 
 const doAuth = (email, password, operation = "login")=> {
   let method = null
@@ -19,7 +22,9 @@ const doAuth = (email, password, operation = "login")=> {
   }
   return auth[method](email, password)
   .then((userData)=> {
-    return Promise.resolve(LOCAL_STORAGE.setItem(AUTH_KEY_NAME, JSON.stringify(userData)))
+    userData = pick(userData, AUTH_USER_PROPERTIES)
+    LOCAL_STORAGE.setItem(AUTH_KEY_NAME, JSON.stringify(userData))
+    return Promise.resolve(userData)
   })
   .catch((error)=> {
     let message = null
@@ -36,7 +41,7 @@ const doAuth = (email, password, operation = "login")=> {
       default:
         message = operation === "login" ? "Login Failed. Please try again." : "Error creating user.";
     }
-    throw Object.create({error: error, message: message})
+    throw new Error(message, error)
   });
 }
 
