@@ -5,7 +5,6 @@ import Immutable from 'seamless-immutable'
 
 const initialState = Immutable([])
 
-// TODO: Unit test this
 const mergeTodos = (todos1 = [], todos2 = [])=> {
   let mergedTodos = []
   todos1.forEach((t1)=> {

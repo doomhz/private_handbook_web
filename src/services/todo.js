@@ -1,25 +1,24 @@
 import {
   STORAGE_KEY_NAME, APP
 } from '../constants'
+import AsyncStorage from '../lib/AsyncStorage'
 
 const db = APP.database()
-const LOCAL_STORAGE = window.localStorage
 
 const getRemoteTodoDataPathByUser = (uid)=> `/user-todos/${uid}`
 
-export const getLocalTodos = ()=> {
-  let todos = LOCAL_STORAGE.getItem(STORAGE_KEY_NAME)
-  try {
-    todos = JSON.parse(todos)
-  } catch (e) {
-    todos = []
-  }
-  if (!todos) todos = []
-  return Promise.resolve(todos)
-}
+export const getLocalTodos = ()=> (
+  AsyncStorage.getItem(STORAGE_KEY_NAME)
+  .then((todos)=> {
+    try { todos = JSON.parse(todos) } catch (e) { todos = null }
+    if (!todos) todos = []
+    return todos
+  })
+)
 
-export const setLocalTodos = (todos)=> Promise.resolve(
-  LOCAL_STORAGE.setItem(STORAGE_KEY_NAME, JSON.stringify(todos))
+export const setLocalTodos = (todos)=> (
+  AsyncStorage.setItem(STORAGE_KEY_NAME, JSON.stringify(todos))
+  .then(()=> todos)
 )
 
 export const loadRemoteTodosByUser = (uid)=> (

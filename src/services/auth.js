@@ -1,8 +1,8 @@
 import { pick } from "lodash"
 import { APP, AUTH_KEY_NAME } from '../constants'
+import AsyncStorage from '../lib/AsyncStorage'
 
 const auth = APP.auth()
-const LOCAL_STORAGE = window.localStorage
 const AUTH_USER_PROPERTIES = [
   "displayName", "email", "emailVerified", "isAnonymous",
   "photoURL", "redirectEventId", "uid"
@@ -23,8 +23,7 @@ const doAuth = (email, password, operation = "login")=> {
   return auth[method](email, password)
   .then((userData)=> {
     userData = pick(userData, AUTH_USER_PROPERTIES)
-    LOCAL_STORAGE.setItem(AUTH_KEY_NAME, JSON.stringify(userData))
-    return Promise.resolve(userData)
+    return AsyncStorage.setItem(AUTH_KEY_NAME, JSON.stringify(userData)).then(()=> userData)
   })
   .catch((error)=> {
     let message = null
@@ -45,21 +44,19 @@ const doAuth = (email, password, operation = "login")=> {
   });
 }
 
-export const loadCurrentUser = ()=> {
-  let userData = LOCAL_STORAGE.getItem(AUTH_KEY_NAME)
-  try { userData = JSON.parse(userData) } catch (e) {}
-  return Promise.resolve(userData)
-}
+export const loadCurrentUser = ()=> (
+  AsyncStorage.getItem(AUTH_KEY_NAME)
+  .then((userData) => {
+    try { userData = JSON.parse(userData) } catch (e) {}
+    return userData
+  })
+)
 
-export const signOut = ()=> {
-  return auth.signOut()
-  .then(()=> {
-    return Promise.resolve(LOCAL_STORAGE.removeItem(AUTH_KEY_NAME))
-  })
-  .catch(()=> {
-    return Promise.resolve(LOCAL_STORAGE.removeItem(AUTH_KEY_NAME))
-  })
-}
+export const signOut = ()=> (
+  auth.signOut()
+  .then(()=> AsyncStorage.removeItem(AUTH_KEY_NAME))
+  .catch(()=> AsyncStorage.removeItem(AUTH_KEY_NAME))
+)
 
 export const registerAuthStateChangeEvent = (callback)=> auth.onAuthStateChanged(callback)
 
