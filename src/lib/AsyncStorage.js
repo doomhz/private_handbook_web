@@ -1,8 +1,6 @@
-let AsyncStorage
+let AsyncStorage = global.AsyncStorage
 
-try {
-  AsyncStorage = require('react-native')
-} catch (e) {
+if (!AsyncStorage) {
   if (!window.localStorage) throw new Error("No LocalStorage available.")
   AsyncStorage = {
     setItem: (key, val)=> Promise.resolve(window.localStorage.setItem(key, val)),
