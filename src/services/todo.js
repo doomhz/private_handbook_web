@@ -1,9 +1,8 @@
-import {
-  STORAGE_KEY_NAME, APP
-} from '../constants'
+import { STORAGE_KEY_NAME } from '../constants'
+import { FIREBASE_APP } from '../lib/FirebaseApp'
 import AsyncStorage from '../lib/AsyncStorage'
 
-const db = APP.database()
+const db = FIREBASE_APP.database()
 
 const getRemoteTodoDataPathByUser = (uid)=> `/user-todos/${uid}`
 

@@ -13,8 +13,3 @@ export const TYPE_TITLES = {
 export const TODO_STATUS_DELETED = "deleted"
 export const TODO_STATUS_ACTIVE = "active"
 export const TODO_STATUS_COMPLETED = "completed"
-
-import Firebase from 'firebase'
-import config from '../../config.json'
-
-export const APP = Firebase.initializeApp(config.firebase)

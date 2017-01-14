@@ -1,8 +1,9 @@
 import { pick } from "lodash"
-import { APP, AUTH_KEY_NAME } from '../constants'
+import { AUTH_KEY_NAME } from '../constants'
+import { FIREBASE_APP } from '../lib/FirebaseApp'
 import AsyncStorage from '../lib/AsyncStorage'
 
-const auth = APP.auth()
+const auth = FIREBASE_APP.auth()
 const AUTH_USER_PROPERTIES = [
   "displayName", "email", "emailVerified", "isAnonymous",
   "photoURL", "redirectEventId", "uid"
