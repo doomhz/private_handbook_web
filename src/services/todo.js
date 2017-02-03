@@ -1,7 +1,9 @@
 import { STORAGE_KEY_NAME } from '../constants'
-import { FIREBASE_APP } from '../lib/FirebaseApp'
+import { firebase as firebaseConfig } from '../../config.json'
+import initFirebaseApp from '../lib/FirebaseApp'
 import AsyncStorage from '../lib/AsyncStorage'
 
+const FIREBASE_APP = initFirebaseApp(firebaseConfig)
 const db = FIREBASE_APP.database()
 
 const getRemoteTodoDataPathByUser = (uid)=> `/user-todos/${uid}`

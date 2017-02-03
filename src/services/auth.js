@@ -1,8 +1,10 @@
 import { pick } from "lodash"
 import { AUTH_KEY_NAME } from '../constants'
-import { FIREBASE_APP } from '../lib/FirebaseApp'
+import { firebase as firebaseConfig } from '../../config.json'
+import initFirebaseApp from '../lib/FirebaseApp'
 import AsyncStorage from '../lib/AsyncStorage'
 
+const FIREBASE_APP = initFirebaseApp(firebaseConfig)
 const auth = FIREBASE_APP.auth()
 const AUTH_USER_PROPERTIES = [
   "displayName", "email", "emailVerified", "isAnonymous",

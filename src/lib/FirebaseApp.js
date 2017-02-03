@@ -1,11 +1,14 @@
 import Firebase from 'firebase'
 
-let FIREBASE_CONF
+let FIREBASE_APP
 
-try {
-  FIREBASE_CONF = require('../../config.json').firebase
-} catch (e) {
-  FIREBASE_CONF = global.APP_CONFIG.firebase
+export default function initFirebaseApp(firebaseConfig){
+  if (FIREBASE_APP) {
+    return FIREBASE_APP
+  }
+  if (!firebaseConfig) {
+    firebaseConfig = require('../../config.json').firebase
+  }
+  FIREBASE_APP = Firebase.initializeApp(firebaseConfig)
+  return FIREBASE_APP
 }
-
-export const FIREBASE_APP = Firebase.initializeApp(FIREBASE_CONF)
