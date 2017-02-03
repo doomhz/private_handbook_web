@@ -1,7 +1,7 @@
 let AsyncStorage
 
 try {
-  AsyncStorage = require('react-native')
+  AsyncStorage = require('react-native').AsyncStorage
 } catch (e) {
   if (!window.localStorage) {
     throw new Error('No LocalStorage available.')
