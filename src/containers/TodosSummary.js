@@ -1,10 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {Link, browserHistory} from 'react-router';
+import React from 'react'
+import { connect } from 'react-redux'
+import {Link, browserHistory} from 'react-router'
 import {
   Row, Col, Modal, Button, Form,
   FormGroup, FormControl, Icon
-} from '@sketchpixy/rubix';
+} from '@sketchpixy/rubix'
 import {
   TYPE_DO, TYPE_DECIDE, TYPE_DELEGATE, TYPE_DELETE,
   TODO_STATUS_ACTIVE
@@ -14,11 +14,11 @@ import {getGroupedTodosByTypeAndStatus} from '../store/todos/selectors'
 
 class TodosSummary extends React.Component {
   constructor(props){
-    super(props);
+    super(props)
     this.state = {
       showQuickAdd: false,
       quickAddType: null,
-      addTodoValue: ""
+      addTodoValue: ''
     }
   }
   componentDidMount() {
@@ -34,7 +34,7 @@ class TodosSummary extends React.Component {
     if (!todo.title) todo.title = this.state.addTodoValue
     todo.type = this.state.quickAddType
     this.props.dispatch(addTodo(todo, {sync: true}))
-    this.setState({quickAddType: "", addTodoValue: ""})
+    this.setState({quickAddType: '', addTodoValue: ''})
   }
   handleQuickAdd(){
     if (!this.state.addTodoValue) return
@@ -139,7 +139,7 @@ class TodosSummary extends React.Component {
         </Row>
         {this.renderQuickAdd()}
       </div>
-    );
+    )
   }
 }
 
@@ -147,4 +147,4 @@ const mapStateToProps = (state)=> ({
   todos: getGroupedTodosByTypeAndStatus(state, TODO_STATUS_ACTIVE)
 })
 
-export default connect(mapStateToProps)(TodosSummary);
+export default connect(mapStateToProps)(TodosSummary)

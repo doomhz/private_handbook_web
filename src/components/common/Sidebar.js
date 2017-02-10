@@ -1,11 +1,11 @@
-import React from 'react';
-import {Link} from 'react-router';
-import Gravatar from 'react-gravatar';
-import {get} from 'lodash';
+import React from 'react'
+import {Link} from 'react-router'
+import Gravatar from 'react-gravatar'
+import {get} from 'lodash'
 import {
   Sidebar, SidebarNav, SidebarNavItem,
   Grid, Row, Col
-} from '@sketchpixy/rubix';
+} from '@sketchpixy/rubix'
 
 const getPath = (path)=> `/${path}`
 
@@ -48,7 +48,7 @@ const SidebarContainer = (props)=> {
                 {email}
                 {!email &&
                   <div>
-                    <Link to="login" style={{color:"#FFF"}}>Log In</Link> ~ <Link to="signup" style={{color:"#FFF"}}>Sign up</Link>
+                    <Link to="login" style={{color:'#FFF'}}>Log In</Link> ~ <Link to="signup" style={{color:'#FFF'}}>Sign up</Link>
                   </div>
                 }
               </div>

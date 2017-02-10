@@ -1,22 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {browserHistory} from 'react-router';
+import React from 'react'
+import { connect } from 'react-redux'
+import {browserHistory} from 'react-router'
 import {
   TYPE_TITLES, TODO_STATUS_ACTIVE, TODO_STATUS_COMPLETED
 } from '../constants'
 import {
   Checkbox, Form, FormGroup, FormControl,
   Button, Icon
-} from '@sketchpixy/rubix';
+} from '@sketchpixy/rubix'
 import {loadTodos, addTodo, deleteTodo, updateTodo} from '../store/todos/actions'
 import {getTodosByType} from '../store/todos/selectors'
 
 class TodosList extends React.Component {
   constructor(props){
-    super(props);
+    super(props)
     this.state = {
       type: props.params.type,
-      addTodoValue: ""
+      addTodoValue: ''
     }
   }
   componentDidMount() {
@@ -32,7 +32,7 @@ class TodosList extends React.Component {
     if (!todo.title) return
     todo.type = this.state.type
     this.props.dispatch(addTodo(todo, {sync: true}))
-    this.setState({addTodoValue: ""})
+    this.setState({addTodoValue: ''})
   }
   deleteTodo(todo){
     this.props.dispatch(deleteTodo(todo, {sync: true}))
@@ -98,7 +98,7 @@ class TodosList extends React.Component {
           </Button>
         </Form>
       </div>
-    );
+    )
   }
 }
 
@@ -107,4 +107,4 @@ const mapStateToProps = (state, ownProps)=> ({
   type: ownProps.params.type
 })
 
-export default connect(mapStateToProps)(TodosList);
+export default connect(mapStateToProps)(TodosList)

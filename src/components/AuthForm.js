@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import {
   Form, FormGroup, FormControl, ControlLabel,
   Col, Button, Alert
-} from '@sketchpixy/rubix';
+} from '@sketchpixy/rubix'
 
 const AuthForm = (props)=> (
   <Form horizontal onSubmit={props.onSubmit}>
@@ -36,7 +36,7 @@ const AuthForm = (props)=> (
 )
 
 AuthForm.defaultProps = {
-  buttonText: "Authorize"
+  buttonText: 'Authorize'
 }
 
 AuthForm.propTypes = {

@@ -56,6 +56,6 @@ export default function reducer(state = initialState, action = {}) {
     case types.TODOS_LOADED:
       return Immutable(action.todos)
     default:
-      return state;
+      return state
   }
 }

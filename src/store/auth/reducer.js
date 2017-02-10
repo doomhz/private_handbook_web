@@ -12,7 +12,7 @@ const reduce = (state = initialState, action = {})=> {
     case types.SIGNUP_ERRORS_UPDATED:
       return state.merge({signup_errors: action.error})
     default:
-      return state;
+      return state
   }
 }
 

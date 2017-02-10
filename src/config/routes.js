@@ -10,7 +10,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 
 module.exports =
   <Router history={browserHistory}>
-    <Route path={"/"} component={App}>
+    <Route path={'/'} component={App}>
       <IndexRoute component={Home} />
       <Route path={'todos'} component={TodosSummary} />
       <Route path={'todos/:type'} component={TodosList} />

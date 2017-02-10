@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 import {
   Row,
   Col,
   Grid,
-} from '@sketchpixy/rubix';
+} from '@sketchpixy/rubix'
 
 export default class Footer extends React.Component {
   render() {
-    var year = new Date().getFullYear();
+    let year = new Date().getFullYear()
     return (
       <div id='footer-container'>
         <Grid id='footer' className='text-center'>
@@ -19,6 +19,6 @@ export default class Footer extends React.Component {
           </Row>
         </Grid>
       </div>
-    );
+    )
   }
 }

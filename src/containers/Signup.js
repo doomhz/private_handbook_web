@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import React from 'react'
+import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 import { signup, resetSignupErrors } from '../store/auth/actions'
 import * as authSelectors from '../store/auth/selectors'
 import AuthForm from '../components/AuthForm'
 
 class Signup extends React.Component {
   constructor(props){
-    super(props);
+    super(props)
     this.state = {}
   }
   componentWillMount(){
@@ -36,7 +36,7 @@ class Signup extends React.Component {
           error={this.props.error}
         />
       </div>
-    );
+    )
   }
 }
 
@@ -45,4 +45,4 @@ const mapStateToProps = (state)=> ({
   currentUser: authSelectors.getCurrentUser(state)
 })
 
-export default connect(mapStateToProps)(Signup);
+export default connect(mapStateToProps)(Signup)

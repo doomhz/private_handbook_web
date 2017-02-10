@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router';
-import { browserHistory } from 'react-router';
+import React from 'react'
+import { Link } from 'react-router'
+import { browserHistory } from 'react-router'
 import {
   SidebarBtn, Navbar, Nav,
   NavDropdownHover, MenuItem,
   Icon, Grid, Row, Col
-} from '@sketchpixy/rubix';
+} from '@sketchpixy/rubix'
 
 const getPath = (path)=> `/${path}`
 
@@ -18,7 +18,7 @@ const Brand = (props)=> {
         </Link>
       </Navbar.Brand>
     </Navbar.Header>
-  );
+  )
 }
 
 const HeaderNavigation = (props)=> {
@@ -40,7 +40,7 @@ const HeaderNavigation = (props)=> {
         }
       </Nav>
     </Nav>
-  );
+  )
 }
 
 const Header = (props)=> {
@@ -64,7 +64,7 @@ const Header = (props)=> {
         </Col>
       </Row>
     </Grid>
-  );
+  )
 }
 
 export default Header

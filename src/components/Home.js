@@ -1,8 +1,8 @@
-import React from 'react';
-import {Link} from 'react-router';
-import appStoreBadge from '../../public/imgs/common/app_store_badge_small.png';
+import React from 'react'
+import {Link} from 'react-router'
+import appStoreBadge from '../../public/imgs/common/app_store_badge_small.png'
 
-const APPSTORE_URL="https://itunes.apple.com/us/app/private-handbook/id1163154893"
+const APPSTORE_URL='https://itunes.apple.com/us/app/private-handbook/id1163154893'
 
 export default class Home extends React.Component {
   render() {
@@ -38,6 +38,6 @@ export default class Home extends React.Component {
         </a>
         <p>...or <Link to="/todos">use it in the browser</Link>.</p>
       </div>
-    );
+    )
   }
 }

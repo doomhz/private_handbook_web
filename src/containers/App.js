@@ -1,19 +1,19 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import React from 'react'
+import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 import * as authSelectors from '../store/auth/selectors'
 import { logout } from '../store/auth/actions'
 import { syncTodos } from '../store/todos/actions'
-import '../App.css';
-import '../main.css';
+import '../App.css'
+import '../main.css'
 import {
   Grid, Row, Col, MainContainer
-} from '@sketchpixy/rubix';
+} from '@sketchpixy/rubix'
 
 /* Common Components */
-import Sidebar from '../components/common/Sidebar';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import Sidebar from '../components/common/Sidebar'
+import Header from '../components/common/Header'
+import Footer from '../components/common/Footer'
 
 const App = (props)=> {
   return (
@@ -31,7 +31,7 @@ const App = (props)=> {
       </div>
       <Footer />
     </MainContainer>
-  );
+  )
 }
 
 const mapStateToProps = (state)=> ({
@@ -41,9 +41,9 @@ const mapStateToProps = (state)=> ({
 const mapDispatchToProps = (dispatch, ownProps, more) => ({
   onLogout: () => {
     dispatch(logout())
-    browserHistory.push("/")
+    browserHistory.push('/')
   },
   onSync: ()=> dispatch(syncTodos())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)

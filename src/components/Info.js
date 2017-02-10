@@ -1,12 +1,12 @@
-import React from 'react';
-import {browserHistory} from 'react-router';
+import React from 'react'
+import {browserHistory} from 'react-router'
 import {TYPE_TITLES} from '../constants'
 import {TextInfo} from './TextInfo'
-import {Button, Icon} from '@sketchpixy/rubix';
+import {Button, Icon} from '@sketchpixy/rubix'
 
 export default class Info extends React.Component {
   constructor(props){
-    super(props);
+    super(props)
     this.state = {
       type: props.params.type,
     }
@@ -22,6 +22,6 @@ export default class Info extends React.Component {
         </h1>
         <TextInfo type={this.state.type} />
       </div>
-    );
+    )
   }
 }

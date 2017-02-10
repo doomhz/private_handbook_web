@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const BulletList = (props)=> {
   if (!props.items.length) return null

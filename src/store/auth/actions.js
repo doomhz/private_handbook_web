@@ -1,4 +1,4 @@
-import { isFunction } from "lodash"
+import { isFunction } from 'lodash'
 import * as types from './action_types'
 import * as service from '../../services/auth'
 
