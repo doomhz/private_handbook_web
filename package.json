@@ -6,7 +6,7 @@
     "react-scripts": "0.7.0"
   },
   "dependencies": {
-    "@sketchpixy/rubix": "^2.9.10",
+    "@sketchpixy/rubix": "^2.9.17",
     "bless": "^3.0.3",
     "firebase": "^3.6.3",
     "lodash": "^4.17.2",

@@ -10,6 +10,16 @@ import {
 const getPath = (path)=> `/${path}`
 
 const ApplicationSidebar = (props)=> {
+  const router = {
+    location: props.location,
+    push: props.history.push,
+    replace: props.history.replace,
+    go: props.history.go,
+    goBack: props.history.goBack,
+    goForward: props.history.goForward,
+    setRouteLeaveHook: ()=>{},
+    isActive: props.history.isActive
+  }
   return (
     <div>
       <Grid>
@@ -17,8 +27,8 @@ const ApplicationSidebar = (props)=> {
           <Col xs={12}>
             <div className='sidebar-nav-container'>
               <SidebarNav style={{marginBottom: 0}}>
-                <SidebarNavItem glyph='icon-fontello-home' name='Home' router={{location:props.location}} href={getPath('')} />
-                <SidebarNavItem glyph='icon-fontello-list-bullet' name='Todos' router={{location:props.location}} href={getPath('todos')} />
+                <SidebarNavItem glyph='icon-fontello-home' name='Home' router={router} href={getPath('')} />
+                <SidebarNavItem glyph='icon-fontello-list-bullet' name='Todos' router={router} href={getPath('todos')} />
               </SidebarNav>
             </div>
           </Col>

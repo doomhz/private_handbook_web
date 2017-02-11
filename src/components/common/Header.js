@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { browserHistory } from 'react-router'
 import {
   SidebarBtn, Navbar, Nav,
-  NavDropdownHover, MenuItem,
+  NavDropdown, MenuItem,
   Icon, Grid, Row, Col
 } from '@sketchpixy/rubix'
 
@@ -26,17 +26,17 @@ const HeaderNavigation = (props)=> {
     <Nav pullRight>
       <Nav>
         {props.user &&
-          <NavDropdownHover eventKey={3} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
-            <MenuItem eventKey={3.1} onClick={props.onSync}>Sync</MenuItem>
-            <MenuItem eventKey={3.2} onClick={props.onLogout}>Logout</MenuItem>
-          </NavDropdownHover>
+          <NavDropdown eventKey={2} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
+            <MenuItem eventKey={2.1} onClick={props.onSync}>Sync</MenuItem>
+            <MenuItem eventKey={2.2} onClick={props.onLogout}>Logout</MenuItem>
+          </NavDropdown>
         }
         {!props.user &&
-          <NavDropdownHover eventKey={3} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
+          <NavDropdown eventKey={3} title={<Icon glyph='icon-fontello-menu' />} noCaret={true} id="basic-nav-dropdown">
             <MenuItem eventKey={3.1} onClick={(ev)=> browserHistory.push('login')}>Sync</MenuItem>
             <MenuItem eventKey={3.2} onClick={(ev)=> browserHistory.push('login')}>Login</MenuItem>
             <MenuItem eventKey={3.3} onClick={(ev)=> browserHistory.push('signup')}>Signup</MenuItem>
-          </NavDropdownHover>
+          </NavDropdown>
         }
       </Nav>
     </Nav>
